@@ -11,28 +11,35 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>To Do</title>
+    <title>To Do App</title>
 </head>
 
 <body>
     <h1>This is my to do app</h1>
 
-    <ul>
+    <form class="col-lg-6 offset-lg-3" action="/addTodo/" method="POST">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="content" placeholder="Add your item"
+                aria-label="Add your item" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-success" type="submit" id="button-addon2" value="Add">Add</button>
+            </div>
+        </div>
+    </form>
+
+    <ul class="col-lg-6 offset-lg-3">
         {% for todo_item in all_items %}
-        <li>{{ todo_item.content }}
+        <li class="list-group-item">{{ todo_item.content }}
             <form action="/deleteTodo/{{ todo_item.id }}/" style="display: inline;" method="POST">
                 {% csrf_token %}
-                <input type="submit" value="Delete">
+                <button type="submit" class="close" aria-label="Close" value="Delete">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </form>
         </li>
         {% endfor %}
     </ul>
-
-    <form action="/addTodo/" method="POST">
-        {% csrf_token %}
-        <input type="text" name="content">
-        <input type="submit" value="Add">
-    </form>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -45,6 +52,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
+
+    <!-- Font awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/font-awesome.min.css">
 </body>
 
 </html>
